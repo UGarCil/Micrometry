@@ -38,7 +38,7 @@ ym2 = 100
 # Data def. CAPTURE
 # cap = cv2.VideCapture(int)
 # interp. cv2 object capturing the images from a webcam. 0 is default for integrated computer webcam
-cap0 = cv2.VideoCapture(0)
+cap0 = cv2.VideoCapture(1)
 
 # Data def. BUTON_X
 # btX = int
@@ -49,6 +49,9 @@ btX0 = 20
 # btY = int
 # interp. the position of the button relative to the screen in Y
 btY0 = 20
+
+
+
 
 
 class Main():
