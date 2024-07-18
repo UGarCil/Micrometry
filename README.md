@@ -1,2 +1,3 @@
 # Micrometry
-A simple morphometric tool based on python, pygame and opencv which allows quick specimen analysis using a digital camera
+This is a simple interface aimed to provide an efficient measurement tool for microscopy, and other applications that require the mapping of pixels into units of measurement.
+
