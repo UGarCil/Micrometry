@@ -108,7 +108,7 @@ class Bu():
         self.saved_points = []
         startingX = self.pA[0]
         startingY = self.pA[1]
-        self.saved_points.append((startingX,startingY))
+        # self.saved_points.append((startingX,startingY))
         for i in range(SUBDIVS):
             # Calculate the relative distance traveled in the time i starting at A
             x1 = self.pA[0] + (self.pG[0] - self.pA[0]) * (i * SEGMENT_DISTANCE)
