@@ -89,6 +89,7 @@ def updateCV2Frames():
     _,frame = cap.read()
     surface = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     surface = cv2.rotate(surface, cv2.ROTATE_90_COUNTERCLOCKWISE)
+    surface = cv2.flip(surface,0)
     surface = cv2.resize(surface, (H,W))  #HEIGHT AND WIDTH get flipped because or the counterclockwise rotation
     surface = pygame.surfarray.make_surface(surface)
     display.blit(surface,(0,0))
