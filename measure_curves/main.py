@@ -16,7 +16,7 @@ from tkinter_utils import save_as_dialog,get_formatted_timestamp
 import time
 from bezier import Bu, Spline
 from PictureManager import takePic
-
+from MOG import mog3
 ############### DD  ###############
 
 
@@ -37,11 +37,14 @@ buttonMeasure.original_color = (100,255,100)
 
 buttonSetPath = Button(W//32,H//32 * 5,W//10,H/24,"SET PATH..",text_size=14)
 buttonPHOTO = Button(W//32,H//32 * 7,W//10,H/24,"PICTURE",text_size=14)
+buttonFREEZE = Button(W//32,H//32 * 9,W//10,H/24,"FREEZE",text_size=14)
+buttonMOG = Button(W//32,H//32 * 11,W//10,H/24,"EDGE MODE",text_size=14,text_color="white")
+buttonMOG.original_color = (0,0,0)
 
 
 # DD. LIST_OF_BUTTONS
 # interp. a collection of Buttons to determine animation and functions
-lob = [buttonSB,buttonMeasure,buttonSetPath,buttonPHOTO]
+lob = [buttonSB,buttonMeasure,buttonSetPath,buttonPHOTO,buttonFREEZE,buttonMOG]
 
 # DD. PRESSING_SCREEN_BUTTON
 # isPressingScreenButton = bool
@@ -80,6 +83,17 @@ text_alarm = TextAlarm("",0,0,16)
 # interp. a Bezier curve system to calculate perimeters
 spline = Spline(scalebar.ratioPixelUnits)
 
+# DD. CV2_FREEZE
+# cv2Freezed = bool
+# interp. whether the user wants to freeze the camera view or not
+cv2Freezed = False
+
+# DD. MOG_ACTIVE
+# MOGMode = bool
+# interp. determines the use of Edge detection mode
+MOGMode = False
+
+
 # CODE
 # FD. updateCV2Frames()
 # purp. create a surface class object with the feed from the webcam
@@ -87,11 +101,14 @@ def updateCV2Frames():
     global frame,surface
     global first,idx
     _,frame = cap.read()
-    surface = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    surface = cv2.rotate(surface, cv2.ROTATE_90_COUNTERCLOCKWISE)
-    surface = cv2.flip(surface,0)
-    surface = cv2.resize(surface, (H,W))  #HEIGHT AND WIDTH get flipped because or the counterclockwise rotation
-    surface = pygame.surfarray.make_surface(surface)
+    if not cv2Freezed:
+        surface = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        surface = cv2.rotate(surface, cv2.ROTATE_90_COUNTERCLOCKWISE)
+        surface = cv2.flip(surface,0)
+        surface = cv2.resize(surface, (H,W))  #HEIGHT AND WIDTH get flipped because or the counterclockwise rotation
+        if MOGMode:
+            surface = mog3(surface)
+        surface = pygame.surfarray.make_surface(surface)
     display.blit(surface,(0,0))
 
 
@@ -227,11 +244,13 @@ def updateButtons():
     global scalebar
     global spline
     global savePath
+    global cv2Freezed
+    global MOGMode
     for button in lob:
         # if the cursor hovers the button, change its color
         if button.rect.collidepoint(pygame.mouse.get_pos()):
             # evaluate if user wants to click on a button
-            if isPressingScreenButton:
+            if isPressingScreenButton and button.ready:
                 button.color = (100,100,100)
                 if button.name == "SCALEBAR":
                     measureMode = True
@@ -247,6 +266,27 @@ def updateButtons():
                 elif button.name == "PICTURE":
                     # use the resized global variable surface from the function updateCVFrames() to take a picture
                     takePic(surface,savePath)
+                elif button.name == "FREEZE":
+                    # use the resized global variable surface from the function updateCVFrames() to take a picture
+                    button.name = "UNFREEZE"
+                    cv2Freezed = True
+                    button.updateName()
+                elif button.name == "UNFREEZE":
+                    # use the resized global variable surface from the function updateCVFrames() to take a picture
+                    button.name = "FREEZE"
+                    cv2Freezed = False
+                    button.updateName()
+                elif button.name == "EDGE MODE":
+                    button.name = "RGB MODE"
+                    MOGMode = True
+                    button.updateName()
+                elif button.name == "RGB MODE":
+                    button.name = "EDGE MODE"
+                    MOGMode = False
+                    button.updateName()
+                # reset the 
+                button.resetRecoil()
+                    
             else:
                 button.color = (200,200,200)
         else:
