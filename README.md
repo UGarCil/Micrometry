@@ -3,6 +3,9 @@ This is a simple interface aimed to provide an efficient measurement tool for mi
 
 ![Length of a Rotifer using Bezier curves](https://raw.githubusercontent.com/UGarCil/Micrometry/main/Examples/rotifer_0d1mm.png)
 
+![An edge and motion detection tool](https://github.com/UGarCil/Micrometry/blob/main/Examples/demo2.gif?raw=true)
+
+![A GUI for quick measurement taking](https://github.com/UGarCil/Micrometry/blob/main/Examples/gifDemo.gif?raw=true)
 
 ## INSTALLATION
 
@@ -30,5 +33,6 @@ I recommend the use of a virtual environment. For a commercial laptop, a good ch
 ```
 
 # TUTORIALS
-How to use Micrometry:   https://www.youtube.com/watch?v=fBV8OwCvHgQ&ab_channel=SebastianLague
+- How to use Micrometry:   https://www.youtube.com/watch?v=fBV8OwCvHgQ&ab_channel=SebastianLague  
+- Micrometry Datasets:
 
