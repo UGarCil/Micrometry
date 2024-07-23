@@ -7,6 +7,7 @@ from os.path import join as jn
 ########################### ARGPARSE arguments ###################################
 parser = argparse.ArgumentParser(description='Line measurement tool')
 parser.add_argument("--ci", default=0,type=int,help='Index of the camera (for multiple camera devices connected)')
+parser.add_argument("--res", default=0.8,type=float,help="Determine the resolution of the camera from 0.1 to 1.0")
 args = parser.parse_args()
 
 ##################################################################################
@@ -21,7 +22,7 @@ cameraRatio = cameraH/cameraW #what proportion of the width is the height (e.g. 
 
 
 # Make the dimensions of the window 80% of the user's screen
-W = int(display_info.current_w*0.6)
+W = int(display_info.current_w*args.res)
 H = int(W*cameraRatio)
 
 SCREEN = (W,H)

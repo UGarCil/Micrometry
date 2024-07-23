@@ -1,5 +1,6 @@
 from constants import *
 import numpy as np
+from padding import get_padded_image
 
 def contains_numeric(s):
     num = ""
@@ -56,12 +57,16 @@ def saveImage(box,prefix):
             try:
                 rgb = display.get_at((pixel_c,pixel_r))[0:3]
                 # rgb = surface[pixel_r][pixel_c]
-                bgr = rgb[::-1]
+                bgr = rgb[::-1] #flip the rgb array to ensure it matches the default channel configuration from opencv
                 imageArray[r][c] = bgr
             except:
                 imageArray[r][c] = (0,0,0)
     imageAsArray = np.array(imageArray)
-    print(imageAsArray.shape)
-    cv2.imwrite(fileName,imageAsArray)
+    # determine which dimension of the box is bigger, w vs h, then add padding accordingly
+    if box.w > box.h:
+        imageToSave = get_padded_image(imageAsArray,box.w)
+    else:
+        imageToSave = get_padded_image(imageAsArray,box.h)
+    cv2.imwrite(fileName,imageToSave)
     print(fileName)
     # np.save("testIMG.npy",imageAsArray)

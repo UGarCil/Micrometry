@@ -234,7 +234,26 @@ def updateUserInput():
                         scalebarMode = False 
                         measureMode = False
 
-
+            if not text_box.isACTIVE:
+                if event.unicode == "p":
+                    updateDisplay_forImageTaking()
+                    # Instead of using the resized global variable pygame object surface from the function updateCVFrames()
+                    # we pass the current display to show the bezier line that could have been there.
+                    takePic(display,savePath)
+                    
+# FD. updateDisplay_forImageTaking()
+# purp. render a screen without buttons, while preserving the line draw elements
+def updateDisplay_forImageTaking():
+    updateCV2Frames()
+    if measureMode:
+        if scalebarMode:
+            scalebar.draw()
+        else:
+            spline.draw()
+    # text_box_line.draw()
+    text_alarm.draw_text()
+    pygame.display.flip()
+    
 # FD. updateButtons()
 # purp. change the colors of the buttons, and handle switches controlling the program's modes
 def updateButtons():
@@ -264,8 +283,10 @@ def updateButtons():
                 elif button.name == "SET PATH..":
                     savePath = save_as_dialog()
                 elif button.name == "PICTURE":
-                    # use the resized global variable surface from the function updateCVFrames() to take a picture
-                    takePic(surface,savePath)
+                    updateDisplay_forImageTaking()
+                    # Instead of using the resized global variable pygame object surface from the function updateCVFrames()
+                    # we pass the current display to show the bezier line that could have been there.
+                    takePic(display,savePath)
                 elif button.name == "FREEZE":
                     # use the resized global variable surface from the function updateCVFrames() to take a picture
                     button.name = "UNFREEZE"

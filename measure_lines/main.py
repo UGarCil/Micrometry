@@ -109,6 +109,20 @@ def draw():
     text_alarm.draw_text()
     pygame.display.flip()
 
+
+# FD. updateDisplay_forImageTaking()
+# purp. render a screen without buttons, while preserving the line draw elements
+def updateDisplay_forImageTaking():
+    updateCV2Frames()
+    if measureMode:
+        if scalebarMode:
+            scalebar.draw()
+        else:
+            line.draw(scalebar)
+    text_box_line.draw()
+    text_alarm.draw_text()
+    pygame.display.flip()
+    
 # FD. updateScaleBar()
 # purp. create a line between two points representing the width of the scalebar
 def updateScalebar():
@@ -218,6 +232,13 @@ def updateUserInput():
                         text_box_line.isACTIVE = False
                         scalebarMode = False 
                         measureMode = False
+            
+            if not text_box.isACTIVE:
+                if event.unicode == "p":
+                    updateDisplay_forImageTaking()
+                    # Instead of using the resized global variable pygame object surface from the function updateCVFrames()
+                    # we pass the current display to show the bezier line that could have been there.
+                    takePic(display,savePath)
 
 
 
@@ -250,7 +271,8 @@ def updateButtons():
                 elif button.name == "SET PATH..":
                     savePath = save_as_dialog()
                 elif button.name == "PICTURE":
-                    takePic(surface,savePath)
+                    updateDisplay_forImageTaking()
+                    takePic(display,savePath)
             else:
                 button.color = (200,200,200)
         else:

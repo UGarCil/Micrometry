@@ -62,23 +62,28 @@ class Box():
                 self.tempX = self.x
                 self.tempY = self.y
                 self.w = mx - self.x
-                self.h = self.w
+                # self.h = self.w
+                self.h = my-self.tempY
             elif self.quadrant == 1:
                 self.tempX = mx
-                # self.tempY = self.y
                 self.w = self.x - self.tempX
                 self.tempY = self.y
-                self.h = self.w
+                # self.h = self.w
+                self.h = my-self.tempY
             elif self.quadrant == 2:
                 self.tempX = mx
                 self.w = self.x - mx
-                self.tempY = self.y - self.w
-                self.h = self.w
+                # self.tempY = self.y - self.w
+                self.tempY = my
+                # self.h = self.w
+                self.h = self.y - self.tempY
             else:
                 self.tempX = self.x
                 self.w = mx - self.x
-                self.tempY = self.y - self.w
-                self.h = self.w
+                # self.tempY = self.y - self.w
+                self.tempY = my
+                # self.h = self.w
+                self.h = self.y - self.tempY
             
             
         # self.rect = pygame.Rect(self.x, self.y,self.w, self.h)

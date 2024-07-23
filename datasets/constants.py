@@ -8,6 +8,7 @@ from os.path import join as jn
 parser = argparse.ArgumentParser(description='Line measurement tool')
 parser.add_argument("--ci", default=0,type=int,help='Index of the camera (for multiple camera devices connected)')
 parser.add_argument("--res", default=0.6,type=float,help="determine the dimensions of the window, from 0 to 1 (float)")
+parser.add_argument("--pad", default="black",type=str,help="determine the type of padding to use in images: black (default); random; reflect; replicate")
 args = parser.parse_args()
 
 ##################################################################################
@@ -37,3 +38,12 @@ display = pygame.display.set_mode(SCREEN)
 # interp. the location of the file that will store the program's output
 savePath = jn(os.path.dirname(__file__),"output.txt")
 
+# DD. PADDINGTYPE
+# padding_type = str
+# interp. the type of padding to add to asymmetrical images before saving them:
+# One of:
+#   - black
+#   - random (one color propagated throughout the entire padding)
+#   - reflect (mirror effect)
+#   - replicate (extend the edges)
+PADDING_TYPE = args.pad
