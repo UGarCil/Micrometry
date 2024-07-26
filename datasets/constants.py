@@ -7,8 +7,8 @@ from os.path import join as jn
 ########################### ARGPARSE arguments ###################################
 parser = argparse.ArgumentParser(description='Line measurement tool')
 parser.add_argument("--ci", default=0,type=int,help='Index of the camera (for multiple camera devices connected)')
-parser.add_argument("--res", default=0.6,type=float,help="determine the dimensions of the window, from 0 to 1 (float)")
-parser.add_argument("--pad", default="black",type=str,help="determine the type of padding to use in images: black (default); random; reflect; replicate")
+parser.add_argument("--res", default=0.6,type=float,help="determine the dimensions of the window, from 0 to 1 (float). Default is 0.6")
+parser.add_argument("--pad", default="black",type=str,help="determine the type of padding to use in images: black (default); random; reflect; replicate. Default is black")
 args = parser.parse_args()
 
 ##################################################################################
