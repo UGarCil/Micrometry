@@ -36,3 +36,5 @@ I recommend the use of a virtual environment. For a commercial laptop, a good ch
 - How to use Micrometry:   https://www.youtube.com/watch?v=fBV8OwCvHgQ&t=535s&ab_channel=SiliconHeart
 - Micrometry Datasets:  https://youtu.be/RYkdiLIK-GM
 
+# DOCUMENTATION
+You can find targeted tutorials for each submodule, and additional information in the official online docs at https://ugarcil.github.io/Micrometry/
